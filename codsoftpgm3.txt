@@ -1,0 +1,94 @@
+//ATM Interface
+package CodSoft;
+import java.util.Scanner;
+import java.io.*;
+
+public class ATM {
+
+    static double balance;
+
+    public void withdraw(double amt) {
+        if (amt > balance) {
+            System.out.println("Withdrawal Failed!!!!\nLow Balance");
+        } else {
+            balance -= amt;
+            System.out.println("Withdrawal Sucessfull\nAmount is:" + amt);
+        }
+    }
+
+    public void deposit(double amt) {
+        balance += amt;
+        System.out.println("Amount Deposited\nAmount is:" + amt);
+    }
+
+    public void checkBalance() {
+        System.out.println("Current Balance is:" + balance);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int ch = 0;
+        System.out.println("******************** ATM INTERFACE **********************");
+        userBank b = new userBank();
+        boolean a = b.getDetails();
+        if (a) {
+            do {
+                int op;
+                System.out.println("Enter your Option:\n1.Withdraw\n2.Deposit\n3.Check Balance\n4.Get User details");
+                op = sc.nextInt();
+                switch (op) {
+                    case 2:
+                        System.out.println("Enter The amount to deposited:");
+                        double amount = sc.nextDouble();
+                        b.deposit(amount);
+                        break;
+                    case 1:
+                        System.out.println("Enter The amount to withdrawn:");
+                        double amt = sc.nextDouble();
+                        b.withdraw(amt);
+                        break;
+                    case 3:
+                        b.checkBalance();
+                        break;
+                    case 4:
+                        b.display();
+                    default:
+                        System.out.println("Enter Valid Option");
+                        break;
+                }
+                System.out.println("Do you want to continue?(1/0)");
+                ch = sc.nextInt();
+
+            } while (ch == 1);
+        }
+    }
+}
+
+class userBank extends ATM{
+        Scanner sc = new Scanner(System.in);
+        String acctno,name;
+        int pin;
+        double balance=500.00;
+        int stdpin=1234;
+        public boolean  getDetails(){
+            System.out.println("Enter Your name:");
+            name = sc.next();
+            System.out.println("Enter Your Account Number:");
+            acctno =sc.next();
+            System.out.println("Enter Your Pin Number:");
+            pin=sc.nextInt();
+            if(stdpin==pin){
+                return true;
+            }
+            else{
+                System.out.println("Incorrect Pin");
+            }
+            return false;
+        }
+        public void display(){
+            System.out.println("Name : "+name);
+            System.out.println("Account number:"+acctno);
+            System.out.println("Balance is:"+ATM.balance);
+        }
+
+}
