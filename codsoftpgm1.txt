@@ -1,0 +1,45 @@
+// Number Guess Game
+package CodSoft;
+
+import java.util.Random;
+import java.util.Scanner;
+public class GuessGame{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        Random rand = new Random();
+        int flag=0,score =0,rounds =1,attempts=5;
+            do {
+                while(rounds<=5){
+                    System.out.println("Round "+rounds);
+                    int num = rand.nextInt(100);
+                while(attempts > 0){
+                    System.out.println("Enter a number to be guessed");
+                    int guess = sc.nextInt();
+
+                    if (guess == num) {
+                        System.out.println("Your Guess is Correct");
+                        score++;
+                        flag = 1;
+                        break;
+                    }
+
+                    else if (guess > num) {
+                        System.out.println("Your Guess is too high");
+                    }
+
+                    else if (guess < num) {
+                        System.out.println("Your Guess is too low");
+                    }
+                    attempts --;
+
+                    if(attempts == 0){
+                        System.out.println("Sorry You lost the round !!!");
+                    }
+                }
+                attempts =5;
+          rounds ++;  }
+        }while(flag!=1);
+        System.out.println("Your Final Score is :" +score);
+
+    }
+}
